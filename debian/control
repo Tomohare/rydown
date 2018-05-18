@@ -1,0 +1,26 @@
+Source: rydown
+Section: utils
+Priority: optional
+Maintainer: DFY/HBX/GOT-NOH <dfy.hbx.got-noh.all@list.orangeportails.net>
+Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 9~), 
+	python-all (>= 2.7), python-setuptools, 
+	python3-all (>= 3.5), python3-setuptools, 
+	python-ply, python-pygments, 
+	python3-ply, python3-pygments
+X-Python-Version: >= 2.7
+X-Python3-Version: >= 3.5
+
+Package: python-rydown
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-ply, python-pygments
+Description: The rydown package for Python 2 Debian,
+ for parsing markdown files.
+ .
+
+Package: python3-rydown
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}, python3-ply, python3-pygments
+Description: The rydown package for Python 3 Debian,
+ for parsing markdown files.
+ .

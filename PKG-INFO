@@ -1,0 +1,39 @@
+Metadata-Version: 1.1
+Name: rydown
+Version: 0.1.1
+Summary: A formal Markdown lexer/parser
+Home-page: https://rypress.com/rydown
+Author: Ryan Hodson
+Author-email: ry@rypress.com
+License: MIT
+Description: 
+        # Ry's Markdown implementation #
+        
+        rydown is a formal lexer/parser for Markdown. It uses PLY to lex
+        tokens and parse them into an abstract syntax tree, which can then be
+        serialized into HTML.
+        
+        It's not a full Markdown implementation, but  it's everything I need to keep
+        RyPress.com running.
+        
+        Due to its PLY implementation, the codebase is smaller than many other Markdown
+        libraries. If you're familiar with formal grammars, this makes it easier to
+        grok. If you're not, check out my tutorials.
+        
+        See https://rypress.com/rydown for more information.
+        
+Keywords: markdown
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Documentation
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Text Processing :: Filters
+Classifier: Topic :: Text Processing :: Markup :: HTML
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
