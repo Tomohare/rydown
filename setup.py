@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- encoding: utf-8; -*-
+# flake8: noqa
 
 from setuptools import setup, find_packages
-from codecs import open
 from os import path
 import versioneer
 

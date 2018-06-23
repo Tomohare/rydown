@@ -238,7 +238,7 @@ def r_wiki_node(node):
 
     elif node_type == 'table_head':
         out += "\n{|\n"
-        out += '!'+node[1].replace('|', '\n!')
+        out += '!' + node[1].replace('|', '\n!')
         if len(node) == 3:
             out += '\n|-\n'
             out += r_wiki_node(node[2])
@@ -246,7 +246,7 @@ def r_wiki_node(node):
         out += "\n|}\n"
 
     elif node_type == 'table_body':
-        out += '|'+node[1].replace('|', '\n|')
+        out += '|' + node[1].replace('|', '\n|')
         if len(node) == 3:
             out += '\n|-\n'
             out += r_wiki_node(node[2])
@@ -301,8 +301,6 @@ def r_wiki_node(node):
         value = node[1].replace('\n', '/n')
         # Replace HTML entities (order matters!)
         value = re.sub(r"&(?!(\w|#)\w+;)", "&amp;", value)
-        # value = value.replace('---', '&mdash;')
-        # value = value.replace('--', '&ndash;')
         value = value.replace('<', '&lt;')
         value = value.replace('>', '&gt;')
 
@@ -329,11 +327,6 @@ def r_wiki_node(node):
         # Remove minor hack
         value = value[1:-1]
 
-        # if len(value) > 0 and value[-1] == '\n':
-        #   value = value.strip()
-        #   value += '\n'
-        # else:
-        #   value = value.strip()
         value = value.replace('/n', '\n')
         out += value
     return out
