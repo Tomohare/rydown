@@ -206,7 +206,7 @@ def test_inlinecode():
 def test_codeblock_nolang():
     resp = rydown.to_mediawiki("""```
 This is a code block.```\n""")
-    assert resp == "<syntaxhighlight lang='bash'>This is a" \
+    assert resp == "<syntaxhighlight lang='text'>This is a" \
         " code block.</syntaxhighlight>\n"
 
 
