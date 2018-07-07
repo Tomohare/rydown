@@ -3,13 +3,16 @@ sudo: false
 language: python
 python:
   - "2.7"
-  - "3.4"
+  - "3.5"
+matrix:
+  include:
+    - python: 2.7
+      env: TOXENV=flake8
 branches:
   only:
     - master
-before_install:
-  - sudo apt-get install -y python-tox
 install:
+  - pip install tox-travis coverage
   - pip install -rrequirements.txt
   - pip install .
 script:
