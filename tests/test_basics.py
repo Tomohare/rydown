@@ -151,7 +151,7 @@ def test_link_ref():
 
 def test_image():
     resp = rydown.to_mediawiki("![Image](https://www.example.com/img.png)\n")
-    assert resp == """<span class="plainlinks">[{{fullurl:Image}} https://www.example.com/img.png]</span>\n"""
+    assert resp == """<span class="plainlinks">[{{fullurl:Image}} https://www.example.com/img.png]</span>"""
 
 
 def test_blockquote():
