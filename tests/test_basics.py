@@ -19,6 +19,11 @@ def test_heading_h1_underline():
     assert resp == "= Heading 1 =\n"
 
 
+def test_heading_h1_underline_singleline():
+    resp = rydown.to_mediawiki("Heading 1\n=========\nOnly one newline\n")
+    assert resp == "= Heading 1 =\n<p>Only one newline</p>\n"
+
+
 def test_heading_h2_underline():
     """Underline header level 2"""
     resp = rydown.to_mediawiki("Heading 2\n---------\n")
@@ -59,19 +64,19 @@ def test_textitalic_asterisc():
     assert resp == "<p>'' italic ''</p>\n" or resp == "<p>''italic''</p>\n"
 
 
-# def test_textitalic_underline():
-#     resp = rydown.to_mediawiki("_italic_\n")
-#     assert resp == "<p>'' italic ''</p>\n" or resp == "<p>''italic''</p>\n"
-
-
 def test_textbold_asterisc():
     resp = rydown.to_mediawiki("**bold**\n")
     assert resp == "<p>'''bold'''</p>\n" or resp == "<p>''' bold '''</p>\n"
 
 
-# def test_textbold_underline():
-#     resp = rydown.to_mediawiki("__bold__\n")
-#     assert resp == "<p>'''bold'''</p>\n" or resp == "<p>''' bold '''</p>\n"
+def test_textbold_asterisc():
+    resp = rydown.to_mediawiki("***italic bold***\n")
+    assert resp == "<p>'''''italic bold'''''</p>\n" or resp == "<p>''''' italic bold '''''</p>\n"
+
+
+def test_table():
+    resp = rydown.to_mediawiki("a|b|c\n-|-|-\nd|e|f\n\n")
+    assert resp == "\n{|\n!a\n!b\n!c\n|-\n|d\n|e\n|f\n|}\n"
 
 
 def test_textattributes():
@@ -96,6 +101,16 @@ def test_bulletlist_minus():
     assert resp == "*apples\n*oranges\n*pears\n"
 
 
+def test_bulletlist_asterisc_sublists_spaces():
+    resp = rydown.to_mediawiki("* apples\n  * oranges\n    * pears\n      * bananas\n        * tomatos\n\n")
+    assert resp == "*apples\n**oranges\n***pears\n****bananas\n*****tomatos\n"
+
+
+def test_bulletlist_asterisc_sublists_tabs():
+    resp = rydown.to_mediawiki("* apples\n\t* oranges\n\t\t* pears\n\t\t\t* bananas\n\t\t\t\t* tomatos\n\n")
+    assert resp == "*apples\n**oranges\n***pears\n****bananas\n*****tomatos\n"
+
+
 def test_numberedlist():
     resp = rydown.to_mediawiki("1. apples\n2. oranges\n3. pears\n\n")
     assert resp == """<ol>
@@ -114,14 +129,29 @@ def test_numberedlist_mixnumering():
 </ol>\n"""
 
 
+def test_comment_simple():
+    resp = rydown.to_mediawiki("<-- Comment -->")
+    assert resp == ""
+
+
+def test_comment_startline():
+    resp = rydown.to_mediawiki("<-- Comment -->Comment in the beginning of line\n")
+    assert resp == "<p>Comment in the beginning of line</p>\n"
+
+
 def test_link():
     resp = rydown.to_mediawiki("A [link](https://www.example.com).\n")
     assert resp == "<p>A [https://www.example.com link].</p>\n"
 
 
+def test_link_ref():
+    resp = rydown.to_mediawiki("""[an example][id]\n\n[id]: http://example.com/\n""")
+    assert resp == "<p>[http://example.com/#id an example]</p>\n"
+
+
 def test_image():
-    resp = rydown.to_mediawiki("An ![Image](img.png)\n")
-    assert resp == "<p>An ![img.png Image]</p>\n"
+    resp = rydown.to_mediawiki("![Image](https://www.example.com/img.png)\n")
+    assert resp == """<span class="plainlinks">[{{fullurl:Image a}} https://www.example.com/img.png]\n"""
 
 
 def test_blockquote():
@@ -173,7 +203,14 @@ def test_inlinecode():
     assert resp == "<p><code>This is a code block.</code></p>\n"
 
 
-def test_codeblock():
+def test_codeblock_nolang():
+    resp = rydown.to_mediawiki("""```
+This is a code block.```\n""")
+    assert resp == "<syntaxhighlight lang='bash'>This is a" \
+        " code block.</syntaxhighlight>\n"
+
+
+def test_codeblock_lang():
     resp = rydown.to_mediawiki("""```bash
 This is a code block.```\n""")
     assert resp == "<syntaxhighlight lang='bash'>This is a" \

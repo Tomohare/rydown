@@ -148,9 +148,9 @@ class MarkdownParser:
         numsps = re.search('(\x80\x80)*', p[1]).end()
         numtab = re.search('(\x81\x81)*', p[1]).end()
         if numsps > 0:
-            p[1] = str(numsps / 2)
+            p[1] = str(int(numsps / 2))
         elif numtab > 0:
-            p[1] = str(numtab)
+            p[1] = str(int(numtab / 2))
         else:
             p[1] = '0'
         if len(p) >= 3 and len(p) <= 4:
