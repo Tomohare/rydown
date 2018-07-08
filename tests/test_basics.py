@@ -69,7 +69,7 @@ def test_textbold_asterisc():
     assert resp == "<p>'''bold'''</p>\n" or resp == "<p>''' bold '''</p>\n"
 
 
-def test_textbold_asterisc():
+def test_textitalicbold_asterisc():
     resp = rydown.to_mediawiki("***italic bold***\n")
     assert resp == "<p>'''''italic bold'''''</p>\n" or resp == "<p>''''' italic bold '''''</p>\n"
 

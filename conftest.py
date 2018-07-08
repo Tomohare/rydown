@@ -13,8 +13,7 @@ NUMBER_OF_ACCEPTABLE_FAILURE = 3
 
 @pytest.hookimpl()
 def pytest_sessionfinish(session, exitstatus):
-    if exitstatus != _pytest.main.EXIT_TESTSFAILED:
-        return
-    failure_rate = session.testsfailed / session.testscollected
-    if failure_rate <= NUMBER_OF_ACCEPTABLE_FAILURE / session.testscollected:
-        session.exitstatus = 0
+    if exitstatus == _pytest.main.EXIT_TESTSFAILED:
+        failure_rate = session.testsfailed / session.testscollected
+        if failure_rate <= NUMBER_OF_ACCEPTABLE_FAILURE / session.testscollected:
+            session.exitstatus = 0
